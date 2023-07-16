@@ -7,6 +7,9 @@ docker run -it -h GB --name gb-test-new-1 ubuntu:22.10 // -h GB - хост; --na
 docker exec -it gb-test-new-1 bash // переходим в контейнер по его имени
 
 docker volume ls // смотрим какие есть волюумы; volume - данные, настроки; при удалении контейнера и запуске нового из образа волюумы позволяют не потерять данные 
+volume - виртуальный жесткий диск, хранится в докере. С ним работает операционная система.
+
+
 
 docker run -it -v ./test_GB.txt:/test_GB.txt ubuntu:22.10 // слинкуем файл test_GB.txt хостовой машины и точно такой же файл в контейнере (все, что запишется в контейнере так же изменится и на хостовой машине)
 
@@ -17,5 +20,5 @@ docker run --name my-phpmyadmin -d --link mariadb:db -p 8082:80 phpmyadmin/phpmy
 
 
 docker run --name mypostgres -e POSTGRES_PASSWORD=test123 -v ./mydb:/var/lib/postgresql -d postgres
-docker run --name adminer -d --link mypostgres:db -p 8080:90 adminer/adminer
+docker run --name adminer -d --link mypostgres:db -p 8080:90 adminer
 
