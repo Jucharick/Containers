@@ -1,0 +1,21 @@
+docker run -it ubuntu:22.10 bash // docker run скачивает из интернета образ ubuntu:22.10 и устанавливает; -it - переходим сразу в развернутый образ через bash
+  
+docker ps - запущенные
+docker ps -a - все
+docker run -it -h GB --name gb-test-new-1 ubuntu:22.10 // -h GB - хост; --name gb-test-new-1 - имя контейнера
+
+docker exec -it gb-test-new-1 bash // переходим в контейнер по его имени
+
+docker volume ls // смотрим какие есть волюумы; volume - данные, настроки; при удалении контейнера и запуске нового из образа волюумы позволяют не потерять данные 
+
+docker run -it -v ./test_GB.txt:/test_GB.txt ubuntu:22.10 // слинкуем файл test_GB.txt хостовой машины и точно такой же файл в контейнере (все, что запишется в контейнере так же изменится и на хостовой машине)
+
+docker run --name mariadb -e MARIADB_ROOT_PASSWORD=test123 -v ./mydb:/var/lib/mysql -d mariadb:10.10.2 // -e передаем инвайремент переменную контейнеру (узнаем из документации)
+
+docker run --name my-phpmyadmin -d --link mariadb:db -p 8082:80 phpmyadmin/phpmyadmin // -d -  врежиме демона, --link mariadb - связывает по сети my-phpmyadmin с базой данных mariadb
+
+
+
+docker run --name mypostgres -e POSTGRES_PASSWORD=test123 -v ./mydb:/var/lib/postgresql -d postgres
+docker run --name adminer -d --link mypostgres:db -p 8080:90 adminer/adminer
+
