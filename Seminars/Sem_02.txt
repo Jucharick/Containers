@@ -1,0 +1,14 @@
+sudo apt install cgroup-tools
+sudo unshare --fork --pid --mount-proc bash
+cgcreate -a $USER -g memory:mytestgroup -g cpu:mytestgroup
+sudo apt install lxc debootstrap bridge-utils lxc-templates
+sudo apt-get update
+sudo lxc-create -n test-ubuntu-1 -t ubuntu
+sudo lxc-start -n test-ubuntu-1 (запускаем контейнер)
+sudo lxc-attach -n test-ubuntu-1 (переходим в контейнер)
+free -m - сколько оперативной памяти доступно (запускаем внутри контейнера)
+sudo lxc-cgroup -n test-ubuntu-1 memory.max 256M
+free -m - смотрим в основной системе сколько доступно оперативной памяти 
+sudo lxc-attach -n test-ubuntu-1 (переходим в контейнер)
+free -m - сколько оперативной памяти доступно (запускаем внутри контейнера)
+sudo lxc-ls
