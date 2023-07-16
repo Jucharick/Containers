@@ -12,22 +12,27 @@ ip a
 ip netns add testns123
 ip netns list
 ip netns exec testns123 bash
+
 в контейнере
 ip a
+
 в основной системе
 ip link add veth0 type veth peer name veth1
 ip a
 ip link set veth1 netns testns123
-ip aip addr add 10.0.0.1/24 dev veth0
+ip addr add 10.0.0.1/24 dev veth0
 ip link set dev veth0 up
 ip a
+
 в контейнере
 ip a
 ip addr add 10.0.0.2/24 dev veth1
 ip link set dev veth1 up
 ip a
+
 в основной системе
 ping 10.0.0.2
+
 в контейнере
 ping 10.0.0.1
 
