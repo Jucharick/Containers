@@ -1,0 +1,29 @@
+FROM ubuntu:22.10
+RUN apt-get update && \
+RUN apt-get install -y cowsay && \
+RUN ln -s /usr/games/cowsay /usr/bin/cowsay && \
+CMD [“cowsay”]
+
+docker build -t cowsaytest-new .
+docker run cowsaytest-new cowsay “GeekBrains” 
+
+FROM ubuntu:22.10
+RUN apt update && \
+    apt install -y nginx
+EXPOSE 80
+CMD [“nginx”, “-g”, “deamon off;” ]
+
+
+----HW----
+
+docker cp mariadb:/etc/mysql/mariadb.cnf ~/
+
+nano Dockerfile
+
+    FROM mariadb:10.10.2
+    COPY mariadb.cnf /
+
+docker build -t mariadb-2 .
+
+docker run --name mariadb-test2 -e MARIADB_ROOT_PASSWORD=123 -d mariadb-2
+docker run --name my-phpmyadmin-mariaDB -d --link mariadb-test2:db -p 8081:80 phpmyadmin/phpmyadmin
